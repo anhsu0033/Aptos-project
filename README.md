@@ -10,12 +10,23 @@ A decentralized todo list application built on the Aptos blockchain. Manage your
 
 ## 🌟 Features
 
+### Core Functionality
 - ✅ **Create Tasks** - Add new tasks to your personal todo list
 - ✅ **Complete Tasks** - Mark tasks as done
 - ✅ **On-Chain Storage** - All tasks stored permanently on Aptos blockchain
 - ✅ **Wallet Integration** - Connect with Petra Wallet
 - ✅ **User-Specific** - Each user has their own independent task list
 - ✅ **Real-time Updates** - Instant blockchain synchronization
+
+### UI/UX Features
+- 🎨 **Futuristic Design** - Modern cyberpunk-inspired interface
+- ✨ **Glass Morphism** - Translucent cards with backdrop blur effects
+- 🌈 **Neon Accents** - Cyan, purple, and pink gradient themes
+- 🎭 **Smooth Animations** - Framer Motion powered interactions
+- 📊 **Live Statistics** - Real-time task completion tracking
+- 📱 **Fully Responsive** - Works on all devices
+- 🌊 **Animated Gradients** - Dynamic background effects
+- ⚡ **Lightning Fast** - Vite-powered instant page loads
 
 ## 🏗️ Project Structure
 
@@ -27,7 +38,15 @@ aptos-todo-dapp/
 │   ├── Move.toml                # Move configuration
 │   └── .aptos/                  # Aptos CLI config
 ├── frontend/
-│   └── index.html               # Complete frontend (HTML + CSS + JS)
+│   ├── src/
+│   │   ├── components/          # React components
+│   │   ├── App.jsx              # Main app
+│   │   ├── main.jsx             # Entry point
+│   │   └── index.css            # Global styles
+│   ├── index.html               # HTML template
+│   ├── package.json             # Dependencies
+│   ├── vite.config.js           # Vite config
+│   └── tailwind.config.js       # Tailwind config
 └── README.md
 ```
 
@@ -39,10 +58,12 @@ aptos-todo-dapp/
 - **CLI Version**: Aptos CLI v4.10.x
 
 ### Frontend
-- **Framework**: Vanilla JavaScript (no build tools required)
+- **Framework**: React 18 with Vite
+- **Styling**: TailwindCSS with custom futuristic theme
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
 - **Wallet**: Petra Wallet Adapter
-- **Styling**: CSS3 with modern gradients and animations
-- **Network Calls**: Native Fetch API
+- **SDK**: Aptos TS SDK v1.28.0
 
 ## 📋 Prerequisites
 
@@ -100,15 +121,22 @@ aptos move compile --named-addresses todo_addr=YOUR_ADDRESS --skip-fetch-latest-
 aptos move publish --named-addresses todo_addr=YOUR_ADDRESS --skip-fetch-latest-git-deps
 ```
 
-### Step 4: Configure Frontend
+### Step 4: Install Frontend Dependencies
 
-Open `frontend/index.html` and update the module address (around line 186):
+```bash
+cd frontend
+npm install
+```
+
+### Step 5: Configure Frontend
+
+Open `frontend/src/components/TodoApp.jsx` and update the module address (around line 16):
 
 ```javascript
 const MODULE_ADDRESS = "0xYOUR_DEPLOYED_ADDRESS_HERE";
 ```
 
-### Step 5: Import Account to Petra
+### Step 6: Import Account to Petra
 
 ```bash
 # Get your private key
@@ -123,35 +151,16 @@ Then in Petra Wallet:
 3. Switch to this account
 4. Make sure you're on **Devnet** network
 
-### Step 6: Run the dApp
+### Step 7: Run the dApp
 
-**Option A: Direct File Access**
-1. Enable "Allow access to file URLs" in Petra extension settings
-2. Double-click `frontend/index.html`
-
-**Option B: Local Server (Recommended)**
-
-Using Python:
 ```bash
 cd frontend
-python -m http.server 8000
-# Open http://localhost:8000
+npm run dev
 ```
 
-Using Node.js:
-```bash
-cd frontend
-npx serve
-# Open the URL shown
-```
+The app will open automatically at `http://localhost:3000`
 
-Using VS Code:
-```bash
-# Install "Live Server" extension
-# Right-click index.html → "Open with Live Server"
-```
-
-### Step 7: Use the dApp
+### Step 8: Use the dApp
 
 1. Open the application in your browser
 2. Click "Connect Petra Wallet"
@@ -299,6 +308,44 @@ Project Link: [https://github.com/yourusername/aptos-todo-dapp](https://github.c
 ---
 
 ⭐ If you found this project helpful, please give it a star!
+
+## 🌐 Deployment
+
+### Deploy to Netlify (Recommended)
+
+**Quick Method - Drag & Drop:**
+
+```bash
+# 1. Build the project
+cd frontend
+npm run build
+
+# 2. Create deployment package (Windows)
+cd ..
+powershell -Command "Compress-Archive -Path frontend\dist\* -DestinationPath aptos-todo-dapp-deploy.zip -Force"
+
+# 3. Go to https://app.netlify.com/drop
+# 4. Drag and drop the zip file
+# 5. Get your live URL!
+```
+
+**Or use the automated script:**
+
+```bash
+cd frontend
+./build-and-zip.bat    # Windows
+# or
+./build-and-zip.sh     # Mac/Linux
+```
+
+📖 **Full deployment guide**: See [NETLIFY_DEPLOYMENT.md](NETLIFY_DEPLOYMENT.md)
+
+### Other Deployment Options
+
+- **Vercel**: `npm run build` → Deploy `dist` folder
+- **GitHub Pages**: Configure for SPA routing
+- **AWS S3**: Upload `dist` folder with static hosting
+- **Your own server**: Serve `dist` folder with nginx/apache
 
 ## 🎯 Future Enhancements
 
